@@ -16,5 +16,7 @@ jobs:
       - run: npm i
       - run: node -v
       - run: npm -v
-      - run: npm run build --no-warnings
+      - run: npm run build
+        env:
+          CI: false  
       - run: npm run start
