@@ -1,0 +1,11 @@
+name: demo-sample
+on: 
+  push:
+    branches: 
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: print hello world
+    steps:
+      - run: echo Hello World
