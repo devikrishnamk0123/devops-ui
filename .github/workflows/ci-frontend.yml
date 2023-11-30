@@ -14,5 +14,7 @@ jobs:
           node-version: '16'
 
       - run: npm i
+      - run: echo node -v
+      - run: echo npm -v
       - run: npm run build
       - run: npm run start
