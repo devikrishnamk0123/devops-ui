@@ -16,5 +16,5 @@ jobs:
       - run: npm i
       - run: node -v
       - run: npm -v
-      - run: npm run build
+      - run: npm run build --no-warnings
       - run: npm run start
