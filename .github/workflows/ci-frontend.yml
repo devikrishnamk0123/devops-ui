@@ -1,0 +1,17 @@
+name: ci-cd-pipeline-frontend
+on: 
+  push:
+    branches: 
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: print hello world
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '16'
+
+      - run: npm i
+      - run: npm build
