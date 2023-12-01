@@ -18,11 +18,7 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-2
-      - uses: oneyedev/aws-fetch-env-file@v2
-        with:
-          region: us-east-2
-          bucket: s3://devi-env-bucket/devops-ui/
-          key: devops-ui/.env
+      - run: aws s3 cp s3://devi-env-bucket/devops-ui/.env ./.env
       - run: cat .env
       - run: npm i
       - run: node -v
