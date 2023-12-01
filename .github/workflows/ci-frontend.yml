@@ -18,12 +18,13 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-2
-      - run: aws s3 cp s3://devi-env-bucket/devops-ui/.env ./.env
-      - run: cat .env
-      - run: npm i
-      - run: node -v
-      - run: npm -v
-      - run: npm run build
+      - run: |
+          aws s3 cp s3://devi-env-bucket/devops-ui/.env ./.env
+          cat .env
+          npm i
+          node -v
+          npm -v
+          npm run build
         env:
           CI: false
 
