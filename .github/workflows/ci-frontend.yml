@@ -61,6 +61,7 @@ jobs:
     if: failure()
     runs-on: ubuntu-latest
     steps:
+      - run: echo ${{ needs.build.result}}
       - run: |
-          curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' ${{ secrets.SLACK_WEBHOOK_URL }}
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"build status: ${{ needs.build.result }},deploy status: ${{ needs.deploy.result }},invalidate status: ${{ needs.invalidate.result }} "}' ${{ secrets.SLACK_WEBHOOK_URL }}
     
