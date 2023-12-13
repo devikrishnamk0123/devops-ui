@@ -46,7 +46,7 @@ jobs:
       - run: aws s3 sync ./build/ s3://devi-devops-ui-frontend --delete
 
   invalidate:
-    needs: deploy
+    needs: [deploy]
     runs-on: ubuntu-latest
     steps:
       - uses: chetan/invalidate-cloudfront-action@v2
@@ -56,14 +56,11 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       
-  slack-notification:
-    runs-on: ubuntu-latest
+  slack-notify:
     needs: [build,deploy,invalidate]
-    if: ${{ contains(join(needs.*.result, ','), 'failure') }}
+    if: failure()
+    runs-on: ubuntu-latest
     steps:
-      - uses: ravsamhq/notify-slack-action@v2
-        with:
-          notify_when: 'failure'
-          status: ${{ job.status }}
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      - run: |
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' ${{ secrets.SLACK_WEBHOOK_URL }}
+    
